@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
@@ -96,14 +98,14 @@ public class UploadBitmapTask extends AsyncTask<Void, Void, Void> {
     private String upload(File file) {
 
         // Initialize the Amazon Cognito credentials provider
-        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+        /*CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 context.getApplicationContext(),
                 Constants.IDENTITY_POOL_ID, // Identity Pool ID
                 Regions.EU_WEST_1 // Region
-        );
+        );*/
 
-        AmazonS3 s3 = new AmazonS3Client(credentialsProvider);
-        s3.setRegion(Region.getRegion(Regions.EU_WEST_1));
+        AmazonS3 s3 = new AmazonS3Client(new BasicAWSCredentials(Constants.ACCESS_KEY_ID, Constants.SECRET_ACCESS_KEY));
+        s3.setRegion(Region.getRegion(Regions.EU_CENTRAL_1));
 
         TransferUtility transferUtility = new TransferUtility(s3, context.getApplicationContext());
 
