@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".helloworld.ChangeProfilePictActivity"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:id="@+id/profilePict"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/donut" />
+
+    <Button
+        android:id="@+id/changeProfilePictButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="5dp"/>
+
+</LinearLayout>
