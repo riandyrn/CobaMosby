@@ -98,18 +98,25 @@ public class UploadBitmapTask extends AsyncTask<Void, Void, Void> {
     private String upload(File file) {
 
         // Initialize the Amazon Cognito credentials provider
-        /*CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 context.getApplicationContext(),
                 Constants.IDENTITY_POOL_ID, // Identity Pool ID
-                Regions.EU_WEST_1 // Region
-        );*/
+                Regions.EU_WEST_1 // Cognito Region
+        );
 
-        AmazonS3 s3 = new AmazonS3Client(new BasicAWSCredentials(Constants.ACCESS_KEY_ID, Constants.SECRET_ACCESS_KEY));
-        s3.setRegion(Region.getRegion(Regions.EU_CENTRAL_1));
+        // Use Cognito credentials
+        AmazonS3 s3 = new AmazonS3Client(credentialsProvider);
 
+        // Set bucket region
+        s3.setRegion(Region.getRegion(Regions.EU_WEST_1));
+
+        // Instantiate TransferUtility object with S3 object as parameter
         TransferUtility transferUtility = new TransferUtility(s3, context.getApplicationContext());
 
+        // Call upload() method
         TransferObserver observer = transferUtility.upload(Constants.BUCKET_NAME, file.getName(), file);
+
+        // Set upload listener
         observer.setTransferListener(transferListener);
 
         return generateURL(file);
